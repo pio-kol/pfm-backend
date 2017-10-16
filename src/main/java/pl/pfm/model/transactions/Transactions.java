@@ -2,7 +2,6 @@ package pl.pfm.model.transactions;
 
 import org.springframework.stereotype.Service;
 import pl.pfm.database.Database;
-import pl.pfm.database.impl.InMemoryDatabase;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
 
@@ -12,10 +11,10 @@ import java.util.List;
 @Service
 public class Transactions {
 
-  private final Database database = new InMemoryDatabase();
+  private final Database database;
 
-  public Transactions() {
-
+  public Transactions(Database database) {
+    this.database = database;
   }
 
   public void addTransaction(Transaction transaction) {

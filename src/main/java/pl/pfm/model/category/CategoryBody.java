@@ -1,24 +1,22 @@
 package pl.pfm.model.category;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.pfm.model.parentcategory.ParentCategory;
 
-public class Category {
+public class CategoryBody {
 
-  private Integer categoryId;
   private String categoryName;
   private ParentCategory parentCategory;
 
-  public Category() {
+  public CategoryBody() {
   }
 
-  public Category(Integer categoryId, String categoryName, ParentCategory parentCategory) {
-    this.categoryId = categoryId;
+  @JsonCreator
+  public CategoryBody(@JsonProperty("categoryName") String categoryName,
+      @JsonProperty("parentCategory") ParentCategory parentCategory) {
     this.categoryName = categoryName;
     this.parentCategory = parentCategory;
-  }
-
-  public Integer getCategoryId() {
-    return categoryId;
   }
 
   public String getCategoryName() {
@@ -28,4 +26,5 @@ public class Category {
   public ParentCategory getParentCategory() {
     return parentCategory;
   }
+
 }

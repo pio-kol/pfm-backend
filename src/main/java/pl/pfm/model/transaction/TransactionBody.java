@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TransactionBody {
+
   private LocalDate date = LocalDate.now();
   private String description;
   private String comment;
@@ -16,8 +17,9 @@ public class TransactionBody {
   private Account account;
   private BigDecimal price;
 
-  public TransactionBody(){
+  public TransactionBody() {
   }
+
   @JsonCreator
   public TransactionBody(@JsonProperty("date") LocalDate date,
       @JsonProperty("description") String description, @JsonProperty("comment") String comment,

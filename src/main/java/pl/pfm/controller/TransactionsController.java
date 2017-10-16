@@ -23,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/transactions")
 public class TransactionsController {
+
   private final TransactionsService service;
 
   public TransactionsController(TransactionsService service) {
@@ -49,7 +50,7 @@ public class TransactionsController {
             .withCategoryId(1))
         .withAccount(AccountBuilder.builder()
             .withAccountId(1)
-            .withBankName("Idea"))
+            .withAccountName("Idea"))
         .withPrice(BigDecimal.ONE)
         .build();
 
@@ -63,7 +64,7 @@ public class TransactionsController {
             .withCategoryId(1))
         .withAccount(AccountBuilder.builder()
             .withAccountId(1)
-            .withBankName("Idea"))
+            .withAccountName("Idea"))
         .withPrice(BigDecimal.ONE)
         .build();
 
@@ -72,7 +73,7 @@ public class TransactionsController {
 
 
   @PostMapping
-  public int postInvoice(@RequestBody TransactionBody transactionBody) throws IOException {
+  public int postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
     return service.postTransaction(transactionBody);
   }
 

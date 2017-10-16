@@ -19,7 +19,7 @@ public class TransactionsService {
     this.transactions = transactions;
   }
 
-  public Transaction getTransaction(Integer id){
+  public Transaction getTransaction(Integer id) {
     return transactions.getTransactionById(id);
   }
 
@@ -40,7 +40,7 @@ public class TransactionsService {
             .withCategoryId(transactionBody.getCategory().getCategoryId()))
         .withAccount(AccountBuilder.builder()
             .withAccountId(transactionBody.getAccount().getAccountId())
-            .withBankName(transactionBody.getAccount().getBankName()))
+            .withAccountName(transactionBody.getAccount().getAccountName()))
         .withPrice(transactionBody.getPrice())
         .build();
   }

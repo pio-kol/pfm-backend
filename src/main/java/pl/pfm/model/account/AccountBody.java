@@ -1,24 +1,24 @@
 package pl.pfm.model.account;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
-public class Account {
+public class AccountBody {
 
-  private Integer accountId;
   private String accountName;
   private BigDecimal accountState;
 
-  public Account() {
+  public AccountBody() {
   }
 
-  public Account(Integer accountId, String accountName, BigDecimal accountState) {
-    this.accountId = accountId;
+  @JsonCreator
+  public AccountBody(@JsonProperty("accountName") String accountName,
+      @JsonProperty("accountState") BigDecimal accountState) {
+
     this.accountName = accountName;
     this.accountState = accountState;
-  }
-
-  public Integer getAccountId() {
-    return accountId;
   }
 
   public String getAccountName() {
