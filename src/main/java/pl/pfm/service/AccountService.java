@@ -1,11 +1,13 @@
 package pl.pfm.service;
 
 import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.account.AccountBody;
 import pl.pfm.model.account.AccountBuilder;
 import pl.pfm.model.accounts.Accounts;
 
+@Service
 public class AccountService {
 
   @Resource
