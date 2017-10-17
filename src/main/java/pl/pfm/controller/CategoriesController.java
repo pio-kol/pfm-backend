@@ -35,7 +35,7 @@ public class CategoriesController {
 
   @CrossOrigin
   @GetMapping(value = "/")
-  public List<Category> getCategory() {
+  public List<Category> getCategories() {
 
     Category c1 = CategoryBuilder
         .builder()
