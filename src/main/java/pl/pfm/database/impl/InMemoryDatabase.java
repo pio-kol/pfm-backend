@@ -77,7 +77,7 @@ public class InMemoryDatabase implements Database {
   public void removeCategory(Category category) {
     Category foundCategory = categories
         .stream()
-        .filter(category1 -> category1.getCategoryId().equals(category.getCategoryId()))
+        .filter(category1 -> category1.getId().equals(category.getId()))
         .findFirst().get();
     transactions.remove(transactions.indexOf(foundCategory));
   }
@@ -103,7 +103,7 @@ public class InMemoryDatabase implements Database {
   public void removeAccount(Account account) {
     Account foundAccount = accounts
         .stream()
-        .filter(account1 -> account1.getAccountId().equals(account.getAccountId()))
+        .filter(account1 -> account1.getId().equals(account.getId()))
         .findFirst().get();
     accounts.remove(accounts.indexOf(foundAccount));
   }

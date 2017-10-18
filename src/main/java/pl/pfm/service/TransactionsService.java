@@ -37,10 +37,10 @@ public class TransactionsService {
         .withDescription(transactionBody.getDescription())
         .withComment(transactionBody.getComment())
         .withCategory(CategoryBuilder.builder()
-            .withCategoryId(transactionBody.getCategory().getCategoryId()))
+            .withCategoryId(transactionBody.getCategory().getId()))
         .withAccount(AccountBuilder.builder()
-            .withAccountId(transactionBody.getAccount().getAccountId())
-            .withAccountName(transactionBody.getAccount().getAccountName()))
+            .withAccountId(transactionBody.getAccount().getId())
+            .withAccountName(transactionBody.getAccount().getName()))
         .withPrice(transactionBody.getPrice())
         .build();
   }

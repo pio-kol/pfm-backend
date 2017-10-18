@@ -24,7 +24,7 @@ public class CategoriesService {
   public int postCategory(CategoryBody categoryBody) {
     Category category = createCategory(categoryBody);
     categories.addCategory(category);
-    return category.getCategoryId();
+    return category.getId();
   }
 
   private Category createCategory(CategoryBody categoryBody) {

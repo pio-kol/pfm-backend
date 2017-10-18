@@ -24,7 +24,7 @@ public class AccountService {
   public int postAccount(AccountBody accountBody) {
     Account account = createAccount(accountBody);
     accounts.addAccount(account);
-    return account.getAccountId();
+    return account.getId();
   }
 
   private Account createAccount(AccountBody accountBody) {

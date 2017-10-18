@@ -29,7 +29,7 @@ public class Accounts {
   public Account getAccountById(Integer id) {
     return database.getAccounts()
         .stream()
-        .filter(account -> account.getAccountId().equals(id))
+        .filter(account -> account.getId().equals(id))
         .findAny()
         .orElse(null);
   }

@@ -29,7 +29,7 @@ public class Categories {
   public Category getCategoryById(Integer id) {
     return database.getCategories()
         .stream()
-        .filter(category -> category.getCategoryId().equals(id))
+        .filter(category -> category.getId().equals(id))
         .findAny()
         .orElse(null);
   }

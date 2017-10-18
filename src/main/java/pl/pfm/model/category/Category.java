@@ -17,11 +17,11 @@ public class Category {
     this.parentCategory = parentCategory;
   }
 
-  public Integer getCategoryId() {
+  public Integer getId() {
     return id;
   }
 
-  public String getCategoryName() {
+  public String getName() {
     return name;
   }
 

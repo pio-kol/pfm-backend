@@ -17,16 +17,15 @@ public class Account {
     this.value = value;
   }
 
-  public Integer getAccountId() {
+  public Integer getId() {
     return id;
   }
 
-  public String getAccountName() {
+  public String getName() {
     return name;
   }
 
-  public BigDecimal getAccountState() {
+  public BigDecimal getValue() {
     return value;
   }
-
 }
