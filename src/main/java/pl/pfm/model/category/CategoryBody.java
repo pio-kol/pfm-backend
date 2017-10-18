@@ -6,21 +6,21 @@ import pl.pfm.model.parentcategory.ParentCategory;
 
 public class CategoryBody {
 
-  private String categoryName;
+  private String name;
   private ParentCategory parentCategory;
 
   public CategoryBody() {
   }
 
   @JsonCreator
-  public CategoryBody(@JsonProperty("categoryName") String categoryName,
+  public CategoryBody(@JsonProperty("name") String name,
       @JsonProperty("parentCategory") ParentCategory parentCategory) {
-    this.categoryName = categoryName;
+    this.name = name;
     this.parentCategory = parentCategory;
   }
 
   public String getCategoryName() {
-    return categoryName;
+    return name;
   }
 
   public ParentCategory getParentCategory() {

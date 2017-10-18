@@ -4,29 +4,29 @@ import java.math.BigDecimal;
 
 public class Account {
 
-  private Integer accountId;
-  private String accountName;
-  private BigDecimal accountState;
+  private Integer id;
+  private String name;
+  private BigDecimal value;
 
   public Account() {
   }
 
-  public Account(Integer accountId, String accountName, BigDecimal accountState) {
-    this.accountId = accountId;
-    this.accountName = accountName;
-    this.accountState = accountState;
+  public Account(Integer accountId, String accountName, BigDecimal value) {
+    this.id = accountId;
+    this.name = accountName;
+    this.value = value;
   }
 
   public Integer getAccountId() {
-    return accountId;
+    return id;
   }
 
   public String getAccountName() {
-    return accountName;
+    return name;
   }
 
   public BigDecimal getAccountState() {
-    return accountState;
+    return value;
   }
 
 }

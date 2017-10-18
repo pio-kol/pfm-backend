@@ -7,26 +7,26 @@ import java.math.BigDecimal;
 
 public class AccountBody {
 
-  private String accountName;
-  private BigDecimal accountState;
+  private String name;
+  private BigDecimal value;
 
   public AccountBody() {
   }
 
   @JsonCreator
-  public AccountBody(@JsonProperty("accountName") String accountName,
-      @JsonProperty("accountState") BigDecimal accountState) {
+  public AccountBody(@JsonProperty("name") String name,
+      @JsonProperty("value") BigDecimal value) {
 
-    this.accountName = accountName;
-    this.accountState = accountState;
+    this.name = name;
+    this.value = value;
   }
 
   public String getAccountName() {
-    return accountName;
+    return name;
   }
 
   public BigDecimal getAccountState() {
-    return accountState;
+    return value;
   }
 
 }
