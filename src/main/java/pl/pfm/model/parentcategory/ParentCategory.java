@@ -17,7 +17,7 @@ public class ParentCategory {
     return parentCategoryId;
   }
 
-  public String getParentCategoryName() {
+  public String getName() {
     return parentCategoryName;
   }
 }

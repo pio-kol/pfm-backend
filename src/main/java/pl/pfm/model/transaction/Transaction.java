@@ -27,6 +27,7 @@ public class Transaction {
    * @param account - transaction if from.
    * @param price - of transaction.
    */
+
   public Transaction(Integer id, LocalDate date, String description, String comment,
       Category category, Account account, BigDecimal price) {
     this.id = id;
