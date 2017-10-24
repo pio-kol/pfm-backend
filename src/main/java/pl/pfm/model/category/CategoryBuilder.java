@@ -4,7 +4,7 @@ import pl.pfm.model.parentcategory.ParentCategory;
 
 public class CategoryBuilder {
 
-  private Integer categoryId;
+  private long categoryId;
   private String categoryName;
   private ParentCategory parentCategory;
 
@@ -12,7 +12,7 @@ public class CategoryBuilder {
     return new CategoryBuilder();
   }
 
-  public CategoryBuilder withCategoryId(Integer categoryId) {
+  public CategoryBuilder withCategoryId(long categoryId) {
     this.categoryId = categoryId;
     return this;
   }
@@ -31,7 +31,7 @@ public class CategoryBuilder {
     return new Category(categoryId, categoryName, parentCategory);
   }
 
-  public Category buildCategoryWithGeneratedId(CategoryBody categoryBody, int id) {
+  public Category buildCategoryWithId(long id, CategoryBody categoryBody) {
     return CategoryBuilder
         .builder()
         .withCategoryId(id)

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class TransactionBuilder {
 
-  private Integer id;
+  private long id;
   private LocalDate date;
   private String description;
   private String comment;
@@ -22,7 +22,7 @@ public class TransactionBuilder {
     return new TransactionBuilder();
   }
 
-  public TransactionBuilder withId(Integer id) {
+  public TransactionBuilder withId(long id) {
     this.id = id;
     return this;
   }
@@ -72,7 +72,7 @@ public class TransactionBuilder {
         category, account, price);
   }
 
-  public Transaction buildTransactionWithGeneratedId(TransactionBody transactionBody, int id) {
+  public Transaction buildTransactionWithId(long id, TransactionBody transactionBody) {
     return TransactionBuilder
         .builder()
         .withId(id)

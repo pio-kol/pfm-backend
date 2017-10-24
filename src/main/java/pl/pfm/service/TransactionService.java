@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
+import pl.pfm.model.transaction.TransactionBuilder;
 import pl.pfm.repository.TransactionRepository;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -22,7 +24,29 @@ public class TransactionService {
     return transactionRepository.findAll();
   }
 
-  public void addTransaction(TransactionBody transactionBody) {
+  public Transaction getOneTransaction(long id) {
+    return transactionRepository.findOne(id);
+  }
+
+  public void postTransaction(TransactionBody transactionBody) {
     transactionRepository.save(transactionBody);
   }
+
+  public boolean deleteTransaction(long id) {
+    return transactionRepository.delete(id);
+  }
+
+  public void putTransaction(long id, TransactionBody transactionBody) {
+    Iterator<Transaction> transactionIterator = transactionRepository.findAll().iterator();
+    while (transactionIterator.hasNext()) {
+      if (transactionIterator.next().getId() == id) {
+        Transaction transaction = TransactionBuilder
+            .builder()
+            .buildTransactionWithId(id, transactionBody);
+        transactionRepository.save(transaction);
+      }
+    }
+  }
+
+
 }

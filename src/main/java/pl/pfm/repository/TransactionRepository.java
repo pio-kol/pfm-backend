@@ -4,63 +4,40 @@ import org.springframework.stereotype.Service;
 import pl.pfm.database.Database;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
-import pl.pfm.model.transaction.TransactionBuilder;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TransactionRepository {
 
-  private List<Transaction> transactions;
-  private AtomicInteger nextId = new AtomicInteger(1);
+  Database database;
 
   public TransactionRepository(Database database) {
-    this.transactions = database.getTransactions();
-
-  }
-
-  public void save(Transaction transaction) {
-    transactions.add(transaction);
+    this.database = database;
   }
 
   public void save(TransactionBody transactionBody) {
-    Transaction transaction = TransactionBuilder
-        .builder()
-        .buildTransactionWithGeneratedId(transactionBody, getNextId());
-    transactions.add(transaction);
+    database.saveTransaction(transactionBody);
+  }
 
+  public void save(Transaction transaction) {
+    database.saveTransaction(transaction);
   }
 
   public List<Transaction> findAll() {
-    return transactions;
-
+    return database.findAllTransactions();
   }
 
-  public long count() {
-    return transactions.size();
-  }
-
-  public Transaction getOneById(Integer id) {
-    return transactions
+  public Transaction findOne(long id) {
+    return database.findAllTransactions()
         .stream()
-        .filter(t1 -> t1.getId().equals(id))
+        .filter(t1 -> t1.getId() == id)
         .findAny()
         .orElse(null);
   }
 
-  public void delete(Transaction transaction) {
-    transactions.remove(transaction);
-
-  }
-
-  public void delete(Integer id) {
-    Transaction transaction = getOneById(id);
-    transactions.remove(transactions.indexOf(transaction));
-  }
-
-  private int getNextId() {
-    return nextId.getAndIncrement();
+  public boolean delete(long id) {
+    return database.deleteTransaction(id);
   }
 
 

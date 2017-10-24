@@ -2,18 +2,18 @@ package pl.pfm.model.parentcategory;
 
 public class ParentCategory {
 
-  private Integer parentCategoryId;
+  private long parentCategoryId;
   private String parentCategoryName;
 
   public ParentCategory() {
   }
 
-  public ParentCategory(Integer parentCategoryId, String parentCategoryName) {
+  public ParentCategory(long parentCategoryId, String parentCategoryName) {
     this.parentCategoryId = parentCategoryId;
     this.parentCategoryName = parentCategoryName;
   }
 
-  public Integer getParentCategoryId() {
+  public long getParentCategoryId() {
     return parentCategoryId;
   }
 

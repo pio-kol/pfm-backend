@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class Transaction {
 
-  private Integer id;
+  private long id;
   private LocalDate date;
   private String description;
   private String comment;
@@ -28,7 +28,7 @@ public class Transaction {
    * @param price - of transaction.
    */
 
-  public Transaction(Integer id, LocalDate date, String description, String comment,
+  public Transaction(long id, LocalDate date, String description, String comment,
       Category category, Account account, BigDecimal price) {
     this.id = id;
     this.date = date;
@@ -39,7 +39,7 @@ public class Transaction {
     this.price = price;
   }
 
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 

@@ -1,8 +1,12 @@
 package pl.pfm.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +34,29 @@ public class AccountController {
   }
 
   @CrossOrigin
+  @GetMapping(value = "/{id}")
+  public Account getOneAccount(@PathVariable long id) {
+    return accountService.getOneAccount(id);
+  }
+
+  @CrossOrigin
   @PostMapping
   public void postAccount(@RequestBody AccountBody accountBody) throws IOException {
-    accountService.addAccount(accountBody);
+    accountService.postAccount(accountBody);
   }
+
+  @CrossOrigin
+  @PutMapping(value = "/{id}")
+  public void putAccount(@PathVariable long id, @RequestBody AccountBody accountBody) {
+    accountService.putAccount(id, accountBody);
+  }
+
+  @CrossOrigin
+  @DeleteMapping(value = "/{id}")
+  public ResponseEntity<?> deleteAccount(@PathVariable long id) {
+    return (accountService.deleteAccount(id) ?
+        ResponseEntity.ok() : ResponseEntity.notFound()).build();
+  }
+
 
 }
