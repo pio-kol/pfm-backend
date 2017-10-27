@@ -41,8 +41,8 @@ public class TransactionController {
 
   @CrossOrigin
   @PostMapping
-  public void postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
-    transactionService.postTransaction(transactionBody);
+  public long postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
+    return transactionService.postTransaction(transactionBody);
   }
 
   @CrossOrigin

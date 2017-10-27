@@ -28,8 +28,8 @@ public class TransactionService {
     return transactionRepository.findOne(id);
   }
 
-  public void postTransaction(TransactionBody transactionBody) {
-    transactionRepository.save(transactionBody);
+  public long postTransaction(TransactionBody transactionBody) {
+    return transactionRepository.save(transactionBody);
   }
 
   public boolean deleteTransaction(long id) {
