@@ -124,11 +124,16 @@ public class InMemoryDatabase implements Database {
   @Override
   public boolean deleteTransaction(long id) {
     Iterator<Transaction> transactionIterator = transactions.iterator();
-    while (transactionIterator.hasNext()) {
-      if (transactionIterator.next().getId() == id) {
-        transactionIterator.remove();
-        return true;
+    Transaction transaction = null;
+    while(transactionIterator.hasNext()){
+      transaction = transactionIterator.next();
+      if(transaction.getId() == id){
+       break;
       }
+    }
+    if(transaction != null){
+      transactions.remove(transaction);
+      return true;
     }
     return false;
   }
@@ -160,8 +165,8 @@ public class InMemoryDatabase implements Database {
   @Override
   public boolean deleteAccount(long id) {
     Iterator<Account> accountIterator = accounts.iterator();
-    while (accountIterator.hasNext()) {
-      if (accountIterator.next().getId() == id) {
+    while (accountIterator.hasNext()){
+      if(accountIterator.next().getId() == id){
         accountIterator.remove();
         return true;
       }
@@ -196,8 +201,8 @@ public class InMemoryDatabase implements Database {
   @Override
   public boolean deleteCategory(long id) {
     Iterator<Category> categoryIterator = categories.iterator();
-    while (categoryIterator.hasNext()) {
-      if (categoryIterator.next().getId() == id) {
+    while (categoryIterator.hasNext()){
+      if(categoryIterator.next().getId() == id){
         categoryIterator.remove();
         return true;
       }
@@ -208,4 +213,5 @@ public class InMemoryDatabase implements Database {
   private int getNextCategoryId() {
     return categoryId.getAndIncrement();
   }
+
 }

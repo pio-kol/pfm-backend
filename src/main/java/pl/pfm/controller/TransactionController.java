@@ -16,6 +16,7 @@ import pl.pfm.service.TransactionService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/transactions")
@@ -30,7 +31,7 @@ public class TransactionController {
   @CrossOrigin
   @GetMapping(value = "/")
   public List<Transaction> getTransactions() {
-    return transactionService.getTransactions();
+    return transactionService.getTransactions().stream().sorted().collect(Collectors.toList());
   }
 
   @CrossOrigin
@@ -41,20 +42,22 @@ public class TransactionController {
 
   @CrossOrigin
   @PostMapping
-  public void postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
-    transactionService.postTransaction(transactionBody);
+  public long postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
+    return transactionService.postTransaction(transactionBody);
+
   }
 
   @CrossOrigin
   @PutMapping(value = "/{id}")
-  public void putTransaction(@PathVariable long id, @RequestBody TransactionBody transactionBody) {
-    transactionService.putTransaction(id, transactionBody);
+  public Transaction putTransaction(@PathVariable long id, @RequestBody TransactionBody transactionBody){
+    return transactionService.putTransaction(id, transactionBody);
   }
 
   @CrossOrigin
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<?> deleteTransaction(long id) {
+  public ResponseEntity<?> deleteTransaction(@PathVariable long id){
     return (transactionService.deleteTransaction(id) ?
         ResponseEntity.ok() : ResponseEntity.notFound()).build();
   }
+
 }

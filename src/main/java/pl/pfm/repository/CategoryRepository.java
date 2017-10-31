@@ -16,8 +16,8 @@ public class CategoryRepository {
     this.database = database;
   }
 
-  public void save(CategoryBody categoryBody) {
-    database.saveCategory(categoryBody);
+  public long save(CategoryBody categoryBody) {
+    return database.saveCategory(categoryBody);
   }
 
   public void save(Category category) {

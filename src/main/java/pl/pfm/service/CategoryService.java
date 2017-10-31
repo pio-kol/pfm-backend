@@ -28,25 +28,28 @@ public class CategoryService {
     return categoryRepository.findOne(id);
   }
 
-  public void postCategory(CategoryBody categoryBody) {
-    categoryRepository.save(categoryBody);
+  public long postCategory(CategoryBody categoryBody) {
+    return categoryRepository.save(categoryBody);
   }
 
-  public boolean deleteCategory(long id) {
+  public boolean deleteCategory(Long id) {
     return categoryRepository.delete(id);
   }
 
-  public void putCategory(long id, CategoryBody categoryBody) {
+  public Category putCategory(long id, CategoryBody categoryBody) {
     Iterator<Category> categoryIterator = categoryRepository.findAll().iterator();
+    Category category = null;
     while (categoryIterator.hasNext()) {
       if (categoryIterator.next().getId() == id) {
         categoryIterator.remove();
-        Category category = CategoryBuilder
+        category = CategoryBuilder
             .builder()
             .buildCategoryWithId(id, categoryBody);
-        categoryRepository.save(category);
       }
     }
-
+    if (category != null) {
+      categoryRepository.save(category);
+    }
+    return category;
   }
 }

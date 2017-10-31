@@ -28,8 +28,8 @@ public class AccountService {
     return accountRepository.findOne(id);
   }
 
-  public void postAccount(AccountBody accountBody) {
-    accountRepository.save(accountBody);
+  public long postAccount(AccountBody accountBody) {
+    return accountRepository.save(accountBody);
   }
 
   public boolean deleteAccount(long id) {
@@ -38,14 +38,17 @@ public class AccountService {
 
   public void putAccount(long id, AccountBody accountBody) {
     Iterator<Account> accountIterator = accountRepository.findAll().iterator();
+    Account account = null;
     while (accountIterator.hasNext()) {
       if (accountIterator.next().getId() == id) {
         accountIterator.remove();
-        Account account = AccountBuilder
+        account = AccountBuilder
             .builder()
             .buildAccountWithId(id, accountBody);
-        accountRepository.save(account);
       }
+    }
+    if(account != null){
+      accountRepository.save(account);
     }
   }
 }

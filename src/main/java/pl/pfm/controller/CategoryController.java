@@ -41,8 +41,8 @@ public class CategoryController {
 
   @CrossOrigin
   @PostMapping
-  public void postCategory(@RequestBody CategoryBody categoryBody) throws IOException {
-    categoryService.postCategory(categoryBody);
+  public long postCategory(@RequestBody CategoryBody categoryBody) throws IOException {
+    return categoryService.postCategory(categoryBody);
   }
 
   @CrossOrigin
@@ -54,10 +54,9 @@ public class CategoryController {
   }
 
   @CrossOrigin
-  @PutMapping(value = " /{id}")
-  public void putCategory(@PathVariable long id,
-      @RequestBody CategoryBody categoryBody) {
-    categoryService.putCategory(id, categoryBody);
+  @PutMapping(value = "/{id}")
+  public Category putCategory(@PathVariable long id, @RequestBody CategoryBody categoryBody) {
+    return  categoryService.putCategory(id, categoryBody);
   }
 
 }

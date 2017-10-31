@@ -28,25 +28,30 @@ public class TransactionService {
     return transactionRepository.findOne(id);
   }
 
-  public void postTransaction(TransactionBody transactionBody) {
-    transactionRepository.save(transactionBody);
+  public long postTransaction(TransactionBody transactionBody) {
+    return transactionRepository.save(transactionBody);
   }
 
   public boolean deleteTransaction(long id) {
     return transactionRepository.delete(id);
   }
 
-  public void putTransaction(long id, TransactionBody transactionBody) {
+  public Transaction putTransaction(long id, TransactionBody transactionBody){
     Iterator<Transaction> transactionIterator = transactionRepository.findAll().iterator();
-    while (transactionIterator.hasNext()) {
-      if (transactionIterator.next().getId() == id) {
-        Transaction transaction = TransactionBuilder
-            .builder()
-            .buildTransactionWithId(id, transactionBody);
-        transactionRepository.save(transaction);
+    Transaction transaction = null;
+    while(transactionIterator.hasNext()){
+      if((transaction = transactionIterator.next()).getId() == id){
+       break;
       }
     }
+    if(transaction != null){
+      transactionRepository.delete(id);
+      transaction = TransactionBuilder
+          .builder()
+          .buildTransactionWithId(id, transactionBody);
+      transactionRepository.save(transaction);
+    }
+    return transaction;
   }
-
 
 }

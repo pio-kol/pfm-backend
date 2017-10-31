@@ -16,8 +16,9 @@ public class TransactionRepository {
     this.database = database;
   }
 
-  public void save(TransactionBody transactionBody) {
-    database.saveTransaction(transactionBody);
+  public long save(TransactionBody transactionBody) {
+
+    return database.saveTransaction(transactionBody);
   }
 
   public void save(Transaction transaction) {
@@ -39,6 +40,5 @@ public class TransactionRepository {
   public boolean delete(long id) {
     return database.deleteTransaction(id);
   }
-
 
 }

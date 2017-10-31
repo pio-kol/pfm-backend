@@ -9,7 +9,7 @@ import java.time.LocalDate;
 /**
  * Transaction
  */
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
 
   private long id;
   private LocalDate date;
@@ -66,6 +66,23 @@ public class Transaction {
   public BigDecimal getPrice() {
     return price;
   }
+
+
+  @Override
+  public int compareTo(Transaction transaction) {
+
+    if (transaction == null) {
+      return -1;
+    }
+    if (this == null) {
+      return -1;
+    }
+    if(this.getId() == transaction.getId()){
+      return 0;
+    }
+    return this.getId() < transaction.getId()? -1 : 1;
+  }
+
 }
 
 

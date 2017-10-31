@@ -16,8 +16,8 @@ public class AccountRepository {
     this.database = database;
   }
 
-  public void save(AccountBody accountBody) {
-    database.saveAccount(accountBody);
+  public long save(AccountBody accountBody) {
+    return database.saveAccount(accountBody);
   }
 
   public void save(Account account) {
