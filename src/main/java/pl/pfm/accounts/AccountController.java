@@ -1,4 +1,4 @@
-package pl.pfm.controller;
+package pl.pfm.accounts;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.account.AccountBody;
-import pl.pfm.service.AccountService;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,8 +40,8 @@ public class AccountController {
 
   @CrossOrigin
   @PostMapping
-  public void postAccount(@RequestBody AccountBody accountBody) throws IOException {
-    accountService.postAccount(accountBody);
+  public long postAccount(@RequestBody AccountBody accountBody) throws IOException {
+    return accountService.postAccount(accountBody);
   }
 
   @CrossOrigin

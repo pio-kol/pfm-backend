@@ -124,11 +124,16 @@ public class InMemoryDatabase implements Database {
   @Override
   public boolean deleteTransaction(long id) {
     Iterator<Transaction> transactionIterator = transactions.iterator();
+    Transaction transaction = null;
     while (transactionIterator.hasNext()) {
-      if (transactionIterator.next().getId() == id) {
-        transactionIterator.remove();
-        return true;
+      transaction = transactionIterator.next();
+      if (transaction.getId() == id) {
+        break;
       }
+    }
+    if (transaction != null) {
+      transactions.remove(transaction);
+      return true;
     }
     return false;
   }
@@ -208,4 +213,5 @@ public class InMemoryDatabase implements Database {
   private int getNextCategoryId() {
     return categoryId.getAndIncrement();
   }
+
 }

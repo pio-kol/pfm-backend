@@ -40,4 +40,12 @@ public class AccountBuilder {
         .withAccountState(accountBody.getAccountState())
         .build();
   }
+
+  public Account buildAccountWithoutId(AccountBody accountBody) {
+    return AccountBuilder
+        .builder()
+        .withAccountName(accountBody.getAccountName())
+        .withAccountState(accountBody.getAccountState())
+        .build();
+  }
 }

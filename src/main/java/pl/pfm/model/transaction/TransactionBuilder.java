@@ -85,6 +85,18 @@ public class TransactionBuilder {
         .build();
   }
 
+  public Transaction buildTransactionWithoutId(TransactionBody transactionBody) {
+    return TransactionBuilder
+        .builder()
+        .withDate(transactionBody.getDate())
+        .withDescription(transactionBody.getDescription())
+        .withComment(transactionBody.getComment())
+        .withCategory(transactionBody.getCategory())
+        .withAccount(transactionBody.getAccount())
+        .withPrice(transactionBody.getPrice())
+        .build();
+  }
+
 }
 
 

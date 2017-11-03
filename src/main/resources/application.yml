@@ -1,2 +1,18 @@
 active:
-  database: memory
+  database: sql
+
+spring:
+  datasource:
+   # driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/pfm
+    username: root
+    password: AniaLew1972
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create

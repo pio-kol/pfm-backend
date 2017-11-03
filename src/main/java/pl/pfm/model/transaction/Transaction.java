@@ -1,5 +1,10 @@
 package pl.pfm.model.transaction;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.category.Category;
 
@@ -9,15 +14,23 @@ import java.time.LocalDate;
 /**
  * Transaction
  */
-public class Transaction {
+@Entity
+public class Transaction implements Comparable<Transaction> {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
   private LocalDate date;
   private String description;
   private String comment;
+  @ManyToOne
   private Category category;
+  @ManyToOne
   private Account account;
   private BigDecimal price;
+
+  public Transaction() {
+  }
 
   /**
    * @param id - transaction id.
@@ -27,6 +40,7 @@ public class Transaction {
    * @param account - transaction if from.
    * @param price - of transaction.
    */
+
 
   public Transaction(long id, LocalDate date, String description, String comment,
       Category category, Account account, BigDecimal price) {
@@ -66,6 +80,23 @@ public class Transaction {
   public BigDecimal getPrice() {
     return price;
   }
+
+
+  @Override
+  public int compareTo(Transaction transaction) {
+
+    if (transaction == null) {
+      return -1;
+    }
+    if (this == null) {
+      return -1;
+    }
+    if (this.getId() == transaction.getId()) {
+      return 0;
+    }
+    return this.getId() < transaction.getId() ? -1 : 1;
+  }
+
 }
 
 

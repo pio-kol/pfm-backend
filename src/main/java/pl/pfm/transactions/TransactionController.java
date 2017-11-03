@@ -1,4 +1,4 @@
-package pl.pfm.controller;
+package pl.pfm.transactions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
-import pl.pfm.service.TransactionService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/transactions")
@@ -30,7 +30,7 @@ public class TransactionController {
   @CrossOrigin
   @GetMapping(value = "/")
   public List<Transaction> getTransactions() {
-    return transactionService.getTransactions();
+    return transactionService.getTransactions().stream().sorted().collect(Collectors.toList());
   }
 
   @CrossOrigin
@@ -41,8 +41,9 @@ public class TransactionController {
 
   @CrossOrigin
   @PostMapping
-  public void postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
-    transactionService.postTransaction(transactionBody);
+  public long postTransaction(@RequestBody TransactionBody transactionBody) throws IOException {
+    return transactionService.postTransaction(transactionBody);
+
   }
 
   @CrossOrigin
@@ -53,8 +54,9 @@ public class TransactionController {
 
   @CrossOrigin
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<?> deleteTransaction(long id) {
+  public ResponseEntity<?> deleteTransaction(@PathVariable long id) {
     return (transactionService.deleteTransaction(id) ?
         ResponseEntity.ok() : ResponseEntity.notFound()).build();
   }
+
 }

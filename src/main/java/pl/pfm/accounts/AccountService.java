@@ -1,11 +1,10 @@
-package pl.pfm.service;
+package pl.pfm.accounts;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.account.AccountBody;
 import pl.pfm.model.account.AccountBuilder;
-import pl.pfm.repository.AccountRepository;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,24 +27,32 @@ public class AccountService {
     return accountRepository.findOne(id);
   }
 
-  public void postAccount(AccountBody accountBody) {
-    accountRepository.save(accountBody);
+  public long postAccount(AccountBody accountBody) {
+    Account account = AccountBuilder.builder()
+        .buildAccountWithoutId(accountBody);
+    Account createdAccount = accountRepository.save(account);
+    return createdAccount.getId();
   }
 
   public boolean deleteAccount(long id) {
-    return accountRepository.delete(id);
+    accountRepository.delete(id);
+    return accountRepository.getOne(id) == null;
+
   }
 
   public void putAccount(long id, AccountBody accountBody) {
     Iterator<Account> accountIterator = accountRepository.findAll().iterator();
+    Account account = null;
     while (accountIterator.hasNext()) {
       if (accountIterator.next().getId() == id) {
         accountIterator.remove();
-        Account account = AccountBuilder
+        account = AccountBuilder
             .builder()
             .buildAccountWithId(id, accountBody);
-        accountRepository.save(account);
       }
+    }
+    if (account != null) {
+      accountRepository.save(account);
     }
   }
 }

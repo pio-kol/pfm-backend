@@ -1,11 +1,10 @@
-package pl.pfm.service;
+package pl.pfm.transactions;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
 import pl.pfm.model.transaction.TransactionBuilder;
-import pl.pfm.repository.TransactionRepository;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,25 +27,35 @@ public class TransactionService {
     return transactionRepository.findOne(id);
   }
 
-  public void postTransaction(TransactionBody transactionBody) {
-    transactionRepository.save(transactionBody);
+  public long postTransaction(TransactionBody transactionBody) {
+    Transaction createdTransaction = TransactionBuilder
+        .builder()
+        .buildTransactionWithoutId(transactionBody);
+    transactionRepository.save(createdTransaction);
+    return createdTransaction.getId();
   }
 
   public boolean deleteTransaction(long id) {
-    return transactionRepository.delete(id);
+    transactionRepository.delete(id);
+    return transactionRepository.findOne(id) == null;
   }
 
   public void putTransaction(long id, TransactionBody transactionBody) {
     Iterator<Transaction> transactionIterator = transactionRepository.findAll().iterator();
+    Transaction transaction = null;
     while (transactionIterator.hasNext()) {
-      if (transactionIterator.next().getId() == id) {
-        Transaction transaction = TransactionBuilder
-            .builder()
-            .buildTransactionWithId(id, transactionBody);
-        transactionRepository.save(transaction);
+      transaction = transactionIterator.next();
+      if (transaction.getId() == id) {
+        break;
       }
     }
+    if (transaction != null) {
+      transactionRepository.delete(id);
+      transaction = TransactionBuilder
+          .builder()
+          .buildTransactionWithId(id, transactionBody);
+      transactionRepository.save(transaction);
+    }
   }
-
 
 }

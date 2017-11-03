@@ -1,7 +1,15 @@
 package pl.pfm.model.parentcategory;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class ParentCategory {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long parentCategoryId;
   private String parentCategoryName;
 

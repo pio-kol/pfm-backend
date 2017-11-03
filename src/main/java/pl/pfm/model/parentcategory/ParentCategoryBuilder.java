@@ -23,4 +23,19 @@ public class ParentCategoryBuilder {
     return new ParentCategory(parentCategoryId, parentCategoryName);
   }
 
+  public ParentCategory buildParentCategoryWithoutId(ParentCategoryBody parentCategoryBody) {
+    return ParentCategoryBuilder
+        .builder()
+        .withParentCategoryName(parentCategoryBody.getParentCategoryName())
+        .build();
+  }
+
+  public ParentCategory buildParentCategoryWithId(long id, ParentCategoryBody parentCategoryBody) {
+    return ParentCategoryBuilder
+        .builder()
+        .withParentCategoryId(id)
+        .withParentCategoryName(parentCategoryBody.getParentCategoryName())
+        .build();
+  }
+
 }

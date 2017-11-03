@@ -40,4 +40,12 @@ public class CategoryBuilder {
         .build();
   }
 
+  public Category buildCategoryWithoutId(CategoryBody categoryBody) {
+    return CategoryBuilder
+        .builder()
+        .withCategoryName(categoryBody.getCategoryName())
+        .withParentCategory(categoryBody.getParentCategory())
+        .build();
+  }
+
 }
