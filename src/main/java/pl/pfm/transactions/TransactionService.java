@@ -44,16 +44,14 @@ public class TransactionService {
     Iterator<Transaction> transactionIterator = transactionRepository.findAll().iterator();
     Transaction transaction = null;
     while (transactionIterator.hasNext()) {
-      transaction = transactionIterator.next();
-      if (transaction.getId() == id) {
-        break;
+      if (transactionIterator.next().getId() == id) {
+        transactionIterator.remove();
+        transaction = TransactionBuilder
+            .builder()
+            .buildTransactionWithId(id, transactionBody);
       }
     }
     if (transaction != null) {
-      transactionRepository.delete(id);
-      transaction = TransactionBuilder
-          .builder()
-          .buildTransactionWithId(id, transactionBody);
       transactionRepository.save(transaction);
     }
   }

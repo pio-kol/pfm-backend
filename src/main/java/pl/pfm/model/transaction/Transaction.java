@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Transaction implements Comparable<Transaction> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private LocalDate date;
   private String description;
