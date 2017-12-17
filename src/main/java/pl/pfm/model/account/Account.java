@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 
 public class Account {
 
-  private Integer id;
+  private long id;
   private String name;
   private BigDecimal value;
 
   public Account() {
   }
 
-  public Account(Integer accountId, String accountName, BigDecimal value) {
+  public Account(long accountId, String accountName, BigDecimal value) {
     this.id = accountId;
     this.name = accountName;
     this.value = value;
   }
 
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 

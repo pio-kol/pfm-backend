@@ -2,14 +2,14 @@ package pl.pfm.model.parentcategory;
 
 public class ParentCategoryBuilder {
 
-  private Integer parentCategoryId;
+  private long parentCategoryId;
   private String parentCategoryName;
 
   public static ParentCategoryBuilder builder() {
     return new ParentCategoryBuilder();
   }
 
-  public ParentCategoryBuilder withParentCategoryId(Integer id) {
+  public ParentCategoryBuilder withParentCategoryId(long id) {
     this.parentCategoryId = id;
     return this;
   }

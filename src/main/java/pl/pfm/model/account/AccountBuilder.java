@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class AccountBuilder {
 
-  private Integer accountId;
+  private long accountId;
   private String accountName;
   private BigDecimal accountState;
 
@@ -13,7 +13,7 @@ public class AccountBuilder {
     return new AccountBuilder();
   }
 
-  public AccountBuilder withAccountId(Integer accountId) {
+  public AccountBuilder withAccountId(long accountId) {
     this.accountId = accountId;
     return this;
   }
@@ -32,7 +32,7 @@ public class AccountBuilder {
     return new Account(accountId, accountName, accountState);
   }
 
-  public Account buildAccountWithGeneratedId(AccountBody accountBody, int id) {
+  public Account buildAccountWithId(long id, AccountBody accountBody) {
     return AccountBuilder
         .builder()
         .withAccountId(id)
