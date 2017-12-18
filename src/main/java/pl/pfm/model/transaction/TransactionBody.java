@@ -2,12 +2,14 @@ package pl.pfm.model.transaction;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.category.Category;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 public class TransactionBody {
 
   private LocalDate date = LocalDate.now();
@@ -33,27 +35,5 @@ public class TransactionBody {
     this.price = price;
   }
 
-  public LocalDate getDate() {
-    return date;
-  }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  public Category getCategory() {
-    return category;
-  }
-
-  public Account getAccount() {
-    return account;
-  }
-
-  public BigDecimal getPrice() {
-    return price;
-  }
 }
