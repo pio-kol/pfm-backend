@@ -4,13 +4,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.account.AccountBody;
-import pl.pfm.model.account.AccountBuilder;
 import pl.pfm.model.category.Category;
 import pl.pfm.model.category.CategoryBody;
-import pl.pfm.model.category.CategoryBuilder;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
-import pl.pfm.model.transaction.TransactionBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,67 +32,67 @@ public class InMemoryDatabase implements Database {
   }
 
   private void databaseInitializer() {
-    Transaction t1 = TransactionBuilder
-        .builder()
-        .withId(getNextTransactionId())
-        .withDate(LocalDate.now())
-        .withDescription("My new computer")
-        .withComment("My first comment")
-        .withCategory(CategoryBuilder.builder()
-            .withCategoryId(1))
-        .withAccount(AccountBuilder.builder()
-            .withAccountId(1)
-            .withAccountName("Idea"))
-        .withPrice(BigDecimal.ONE)
+    Transaction t1 = Transaction.builder()
+        .id(getNextTransactionId())
+        .date(LocalDate.now())
+        .description("My new computer")
+        .comment("My first comment")
+        .category(Category.builder()
+                .id(1)
+                .build())
+        .account(Account.builder()
+            .id(1)
+            .name("Idea")
+            .build())
+        .price(BigDecimal.ONE)
         .build();
 
-    Transaction t2 = TransactionBuilder
-        .builder()
-        .withId(getNextTransactionId())
-        .withDate(LocalDate.now())
-        .withDescription("My new computer 2")
-        .withComment("My first comment 2")
-        .withCategory(CategoryBuilder.builder()
-            .withCategoryId(1))
-        .withAccount(AccountBuilder.builder()
-            .withAccountId(1)
-            .withAccountName("Idea"))
-        .withPrice(BigDecimal.ONE)
-        .build();
+      Transaction t2 = Transaction.builder()
+              .id(getNextTransactionId())
+              .date(LocalDate.now())
+              .description("My yet anothernew computer")
+              .comment("Very good purchase")
+              .category(Category.builder()
+                      .id(1)
+                      .build())
+              .account(Account.builder()
+                      .id(1)
+                      .name("Idea")
+                      .build())
+              .price(BigDecimal.ONE)
+              .build();
 
     transactions.add(t1);
     transactions.add(t2);
 
-    Category c1 = CategoryBuilder
+    Category c1 = Category
         .builder()
-        .withCategoryId(getNextCategoryId())
-        .withCategoryName("Car")
-        .withParentCategory(null)
+        .id(getNextCategoryId())
+        .name("Car")
+        .parentCategory(null)
         .build();
 
-    Category c2 = CategoryBuilder
-        .builder()
-        .withCategoryId(getNextCategoryId())
-        .withCategoryName("Car")
-        .withParentCategory(null)
-        .build();
+      Category c2 = Category
+              .builder()
+              .id(getNextCategoryId())
+              .name("Car")
+              .parentCategory(null)
+              .build();
 
     categories.add(c1);
     categories.add(c2);
 
-    Account a1 = AccountBuilder
-        .builder()
-        .withAccountId(getNextAccountId())
-        .withAccountName("mBank")
-        .withAccountState(BigDecimal.valueOf(123.16))
+    Account a1 = Account.builder()
+        .id(getNextAccountId())
+        .name("mBank")
+        .value(BigDecimal.valueOf(123.16))
         .build();
 
-    Account a2 = AccountBuilder
-        .builder()
-        .withAccountId(getNextAccountId())
-        .withAccountName("Inteligo")
-        .withAccountState(BigDecimal.valueOf(234.56))
-        .build();
+    Account a2 = Account.builder()
+        .id(getNextAccountId())
+         .name("Inteligo")
+         .value(BigDecimal.valueOf(234.56))
+         .build();
 
     accounts.add(a1);
     accounts.add(a2);
@@ -103,9 +100,15 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public long saveTransaction(TransactionBody transactionBody) {
-    Transaction transaction = TransactionBuilder
-        .builder()
-        .buildTransactionWithId(getNextTransactionId(), transactionBody);
+    Transaction transaction = Transaction.builder()
+        .date(transactionBody.getDate())
+        .price(transactionBody.getPrice())
+        .account(transactionBody.getAccount())
+        .category(transactionBody.getCategory())
+        .comment(transactionBody.getComment())
+        .description(transactionBody.getDescription())
+        .id(getNextTransactionId())
+        .build()   ;
     transactions.add(transaction);
     return transaction.getId();
   }
@@ -139,9 +142,12 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public long saveAccount(AccountBody accountBody) {
-    Account account = AccountBuilder
-        .builder()
-        .buildAccountWithId(getNextAccountId(), accountBody);
+    Account account = Account.builder()
+        .id(getNextAccountId())
+        .name(accountBody.getAccountName())
+        .value(accountBody.getAccountState())
+        .build();
+
     accounts.add(account);
     return account.getId();
   }
@@ -175,9 +181,11 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public long saveCategory(CategoryBody categoryBody) {
-    Category category = CategoryBuilder
-        .builder()
-        .buildCategoryWithId(getNextCategoryId(), categoryBody);
+    Category category = Category.builder()
+        .id(getNextCategoryId())
+        .parentCategory(categoryBody.getParentCategory())
+        .name(categoryBody.getCategoryName())
+        .build();
     categories.add(category);
     return category.getId();
   }
