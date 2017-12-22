@@ -42,13 +42,13 @@ public class CategoryService {
     while (categoryIterator.hasNext()) {
       if (categoryIterator.next().getId() == id) {
         categoryIterator.remove();
-        category = CategoryBuilder
-            .builder()
-            .buildCategoryWithId(id, categoryBody);
+        category = Category.builder()
+            .id(id)
+            .name(categoryBody.getCategoryName())
+            .parentCategory(categoryBody.getParentCategory())
+            .build();
+        categoryRepository.save(category);
       }
-    }
-    if (category != null) {
-      categoryRepository.save(category);
     }
     return category;
   }

@@ -59,5 +59,4 @@ public class TransactionController {
     return (transactionService.deleteTransaction(id) ?
         ResponseEntity.ok() : ResponseEntity.notFound()).build();
   }
-
 }

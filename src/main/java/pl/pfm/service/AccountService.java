@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.account.AccountBody;
-import pl.pfm.model.account.AccountBuilder;
 import pl.pfm.repository.AccountRepository;
 
 import java.util.Iterator;
@@ -38,17 +37,16 @@ public class AccountService {
 
   public void putAccount(long id, AccountBody accountBody) {
     Iterator<Account> accountIterator = accountRepository.findAll().iterator();
-    Account account = null;
     while (accountIterator.hasNext()) {
       if (accountIterator.next().getId() == id) {
         accountIterator.remove();
-        account = AccountBuilder
-            .builder()
-            .buildAccountWithId(id, accountBody);
+        Account account = Account.builder()
+            .id(id)
+            .name(accountBody.getAccountName())
+            .value(accountBody.getAccountState())
+            .build();
+        accountRepository.save(account);
       }
-    }
-    if(account != null){
-      accountRepository.save(account);
     }
   }
 }
