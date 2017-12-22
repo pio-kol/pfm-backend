@@ -40,7 +40,7 @@ public class TransactionService {
         Transaction transaction = null;
         while (transactionIterator.hasNext()) {
             if (transactionIterator.next().getId() == id) {
-                Transaction transaction =
+                transaction =
                         Transaction.builder()
                                 .date(transactionBody.getDate())
                                 .description(transactionBody.getDescription())
