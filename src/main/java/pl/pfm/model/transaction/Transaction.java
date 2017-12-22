@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Data
 @Builder
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
 
   private long id;
   private LocalDate date;
@@ -32,7 +32,20 @@ public class Transaction {
    * @param price - of transaction.
    */
 
+  @Override
+  public int compareTo(pl.pfm.model.transaction.Transaction transaction) {
 
+      if (transaction == null) {
+          return -1;
+      }
+      if (this == null) {
+          return -1;
+      }
+      if(this.getId() == transaction.getId()){
+          return 0;
+      }
+      return this.getId() < transaction.getId()? -1 : 1;
+  }
 }
 
 

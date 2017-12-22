@@ -41,8 +41,8 @@ public class AccountController {
 
   @CrossOrigin
   @PostMapping
-  public void postAccount(@RequestBody AccountBody accountBody) throws IOException {
-    accountService.postAccount(accountBody);
+  public long postAccount(@RequestBody AccountBody accountBody) throws IOException {
+    return accountService.postAccount(accountBody);
   }
 
   @CrossOrigin

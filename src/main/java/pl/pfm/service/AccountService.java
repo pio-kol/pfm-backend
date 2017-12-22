@@ -27,8 +27,8 @@ public class AccountService {
     return accountRepository.findOne(id);
   }
 
-  public void postAccount(AccountBody accountBody) {
-    accountRepository.save(accountBody);
+  public long postAccount(AccountBody accountBody) {
+    return accountRepository.save(accountBody);
   }
 
   public boolean deleteAccount(long id) {

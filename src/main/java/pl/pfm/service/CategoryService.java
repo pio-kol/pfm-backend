@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import pl.pfm.model.category.Category;
 import pl.pfm.model.category.CategoryBody;
+import pl.pfm.model.category.CategoryBuilder;
 import pl.pfm.repository.CategoryRepository;
 
 import java.util.Iterator;
@@ -27,20 +28,21 @@ public class CategoryService {
     return categoryRepository.findOne(id);
   }
 
-  public void postCategory(CategoryBody categoryBody) {
-    categoryRepository.save(categoryBody);
+  public long postCategory(CategoryBody categoryBody) {
+    return categoryRepository.save(categoryBody);
   }
 
-  public boolean deleteCategory(long id) {
+  public boolean deleteCategory(Long id) {
     return categoryRepository.delete(id);
   }
 
-  public void putCategory(long id, CategoryBody categoryBody) {
+  public Category putCategory(long id, CategoryBody categoryBody) {
     Iterator<Category> categoryIterator = categoryRepository.findAll().iterator();
+    Category category = null;
     while (categoryIterator.hasNext()) {
       if (categoryIterator.next().getId() == id) {
         categoryIterator.remove();
-        Category category = Category.builder()
+        category = Category.builder()
             .id(id)
             .name(categoryBody.getCategoryName())
             .parentCategory(categoryBody.getParentCategory())
@@ -48,6 +50,6 @@ public class CategoryService {
         categoryRepository.save(category);
       }
     }
-
+    return category;
   }
 }
