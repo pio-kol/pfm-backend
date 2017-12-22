@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Data;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.category.Category;
 
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 /**
  * Transaction
  */
+@Data
+@Builder
 @Entity
 public class Transaction implements Comparable<Transaction> {
 
@@ -41,62 +45,21 @@ public class Transaction implements Comparable<Transaction> {
    * @param price - of transaction.
    */
 
-
-  public Transaction(long id, LocalDate date, String description, String comment,
-      Category category, Account account, BigDecimal price) {
-    this.id = id;
-    this.date = date;
-    this.description = description;
-    this.comment = comment;
-    this.category = category;
-    this.account = account;
-    this.price = price;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public LocalDate getDate() {
-    return date;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  public Category getCategory() {
-    return category;
-  }
-
-  public Account getAccount() {
-    return account;
-  }
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-
   @Override
-  public int compareTo(Transaction transaction) {
 
-    if (transaction == null) {
-      return -1;
-    }
-    if (this == null) {
-      return -1;
-    }
-    if (this.getId() == transaction.getId()) {
-      return 0;
-    }
-    return this.getId() < transaction.getId() ? -1 : 1;
+  public int compareTo(pl.pfm.model.transaction.Transaction transaction) {
+
+      if (transaction == null) {
+          return -1;
+      }
+      if (this == null) {
+          return -1;
+      }
+      if(this.getId() == transaction.getId()){
+          return 0;
+      }
+      return this.getId() < transaction.getId()? -1 : 1;
   }
-
 }
 
 

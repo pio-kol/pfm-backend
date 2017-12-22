@@ -5,9 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.math.BigDecimal;
 
 @Entity
+@Data
+@Builder
 public class Account {
 
   @Id
@@ -15,25 +20,4 @@ public class Account {
   private long id;
   private String name;
   private BigDecimal value;
-
-  public Account() {
-  }
-
-  public Account(long accountId, String accountName, BigDecimal value) {
-    this.id = accountId;
-    this.name = accountName;
-    this.value = value;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public BigDecimal getValue() {
-    return value;
-  }
 }

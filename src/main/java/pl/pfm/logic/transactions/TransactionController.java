@@ -48,13 +48,13 @@ public class TransactionController {
 
   @CrossOrigin
   @PutMapping(value = "/{id}")
-  public void putTransaction(@PathVariable long id, @RequestBody TransactionBody transactionBody) {
-    transactionService.putTransaction(id, transactionBody);
+  public Transaction putTransaction(@PathVariable long id, @RequestBody TransactionBody transactionBody){
+    return transactionService.putTransaction(id, transactionBody);
   }
 
   @CrossOrigin
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<?> deleteTransaction(@PathVariable long id) {
+  public ResponseEntity<?> deleteTransaction(@PathVariable long id){
     return (transactionService.deleteTransaction(id) ?
         ResponseEntity.ok() : ResponseEntity.notFound()).build();
   }

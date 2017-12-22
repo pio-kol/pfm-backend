@@ -54,8 +54,8 @@ public class CategoryController {
 
   @CrossOrigin
   @PutMapping(value = "/{id}")
-  public void putCategory(@PathVariable long id, @RequestBody CategoryBody categoryBody) {
-    categoryService.putCategory(id, categoryBody);
+  public Category putCategory(@PathVariable long id, @RequestBody CategoryBody categoryBody) {
+    return  categoryService.putCategory(id, categoryBody);
   }
 
 }

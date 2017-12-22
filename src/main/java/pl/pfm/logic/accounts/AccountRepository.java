@@ -7,4 +7,5 @@ import pl.pfm.model.account.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
+    Account getAccountById(long id);
 }
