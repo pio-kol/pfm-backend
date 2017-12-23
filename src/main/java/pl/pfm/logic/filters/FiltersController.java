@@ -1,11 +1,15 @@
 package pl.pfm.logic.filters;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pl.pfm.logic.accounts.AccountService;
+import pl.pfm.logic.categories.CategoryService;
 import pl.pfm.model.filter.Filter;
+import pl.pfm.model.transaction.Transaction;
+import pl.pfm.model.transaction.TransactionBody;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,25 +20,43 @@ import java.util.List;
 @RequestMapping("/v1/filters")
 public class FiltersController {
 
+    private FiltersService filtersService;
+
     @CrossOrigin
     @GetMapping(value = "/")
     public List<Filter> getFilters() {
+        return filtersService.getFilters();
+    }
 
-        Filter filter1 = new Filter();
-        filter1.setAccounts(new ArrayList<>());
-        filter1.setCategories(new ArrayList<>());
-        filter1.setComment("");
-        filter1.setDateFrom(LocalDate.of(2017, 1, 1));
-        filter1.setDateTo(LocalDate.of(2017, 12, 31));
-        filter1.setDescription("");
-        filter1.setName("This Year");
-        filter1.setPriceFrom(BigDecimal.ZERO);
-        filter1.setPriceTo(BigDecimal.valueOf(1111111));
+    @CrossOrigin
+    @GetMapping(value = "/{id}")
+    public Filter getOneFilter(@PathVariable long id) {
+        return filtersService.getOneFilter(id);
+    }
 
-        Filter filter2 = new Filter();
-        filter2.setName("Empty");
+    @CrossOrigin
+    @PostMapping
+    public long postTransaction(@RequestBody Filter filter) throws IOException {
+        return filtersService.postFilter(filter);
 
-        return Arrays.asList(filter2, filter1);
+    }
+
+    @CrossOrigin
+    @PutMapping(value = "/{id}")
+    public Filter putTransaction(@PathVariable long id, @RequestBody Filter filterBody) {
+        return filtersService.putFilter(id, filterBody);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteFilter(@PathVariable long id) {
+        return (filtersService.deleteFilter(id) ?
+                ResponseEntity.ok() : ResponseEntity.notFound()).build();
+    }
+
+    @Autowired
+    public void setFiltersService(FiltersService filtersService) {
+        this.filtersService = filtersService;
     }
 
 }

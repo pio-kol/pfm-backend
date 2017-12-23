@@ -4,32 +4,38 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.pfm.model.account.Account;
+import pl.pfm.model.category.Category;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-//@Entity
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Filter {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private List<Integer> categories;
-    private List<Integer> accounts;
+
+    @OneToMany
+    private List<Category> categories;
+
+    @OneToMany
+    private List<Account> accounts;
+
     private LocalDate dateFrom;
     private LocalDate dateTo;
+
     private BigDecimal priceFrom;
     private BigDecimal priceTo;
+
     private String description;
     private String comment;
 
