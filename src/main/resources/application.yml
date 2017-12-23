@@ -1,2 +1,18 @@
 active:
-  database: memory
+  database: sql
+
+spring:
+  datasource:
+   # driverClassName: com.mysql.jdbc.Driver
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/pfm
+    username: postgres
+    password: postgres
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update

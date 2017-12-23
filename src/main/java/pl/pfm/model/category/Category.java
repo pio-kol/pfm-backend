@@ -1,22 +1,25 @@
 package pl.pfm.model.category;
 
-import lombok.*;
-import pl.pfm.model.parentcategory.ParentCategory;
+import javax.persistence.*;
 
+import lombok.*;
+
+import java.util.Collection;
+
+@Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
-  private long id;
-  private String name;
-  private ParentCategory parentCategory;
 
-  public long getId() {
-    return id;
-  }
-  public String getName() {
-    return name;
-  }
-  public ParentCategory getParentCategory() {
-    return parentCategory;
-  }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  private String name;
+
+  @ManyToOne
+  private Category parentCategory;
+
 }

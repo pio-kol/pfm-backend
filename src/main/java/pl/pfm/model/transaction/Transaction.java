@@ -1,38 +1,43 @@
 package pl.pfm.model.transaction;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.pfm.model.account.Account;
 import pl.pfm.model.category.Category;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Transaction
- */
+
+@Entity
 @Data
 @Builder
-public class Transaction implements Comparable<Transaction>{
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transaction implements Comparable<Transaction> {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private LocalDate date;
   private String description;
   private String comment;
+  @ManyToOne
   private Category category;
+  @ManyToOne
   private Account account;
   private BigDecimal price;
 
-  /**
-   * @param id - transaction id.
-   * @param date - date of transaction.
-   * @param description - of transaction.
-   * @param category - of transaction.
-   * @param account - transaction if from.
-   * @param price - of transaction.
-   */
-
   @Override
+
   public int compareTo(pl.pfm.model.transaction.Transaction transaction) {
 
       if (transaction == null) {

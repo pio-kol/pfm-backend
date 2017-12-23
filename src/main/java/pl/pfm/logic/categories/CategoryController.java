@@ -1,4 +1,4 @@
-package pl.pfm.controller;
+package pl.pfm.logic.categories;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.pfm.model.category.Category;
 import pl.pfm.model.category.CategoryBody;
-import pl.pfm.service.CategoryService;
 
 import java.io.IOException;
 import java.util.List;
