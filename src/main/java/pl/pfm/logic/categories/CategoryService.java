@@ -1,12 +1,10 @@
-package pl.pfm.categories;
+package pl.pfm.logic.categories;
 
 import org.springframework.stereotype.Service;
 import pl.pfm.model.category.Category;
 import pl.pfm.model.category.CategoryBody;
-import pl.pfm.repository.CategoryRepository;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -30,7 +28,7 @@ public class CategoryService {
     public long postCategory(CategoryBody categoryBody) {
         Category createdCategory = Category.builder()
                 .name(categoryBody.getCategoryName())
-                .parentCategory(categoryBody.getParentCategory())
+                .parentCategory(categoryBody.getParentCategory() != null ? categoryRepository.findOne(categoryBody.getParentCategory().getId()) : null)
                 .build();
         categoryRepository.save(createdCategory);
         return createdCategory.getId();
@@ -42,19 +40,13 @@ public class CategoryService {
     }
 
     public Category putCategory(long id, CategoryBody categoryBody) {
-        Iterator<Category> categoryIterator = categoryRepository.findAll().iterator();
-        Category category = null;
-        while (categoryIterator.hasNext()) {
-            if (categoryIterator.next().getId() == id) {
-                categoryIterator.remove();
-                category = Category.builder()
-                        .id(id)
-                        .name(categoryBody.getCategoryName())
-                        .parentCategory(categoryBody.getParentCategory())
-                        .build();
-                categoryRepository.save(category);
-            }
-        }
-        return category;
+        Category categoryToUpdate = categoryRepository.findOne(id);
+
+        categoryToUpdate.setName(categoryBody.getCategoryName());
+        categoryToUpdate.setParentCategory(categoryBody.getParentCategory() != null ? categoryRepository.findOne(categoryBody.getParentCategory().getId()) : null);
+
+        categoryRepository.save(categoryToUpdate);
+
+        return categoryToUpdate;
     }
 }

@@ -1,4 +1,4 @@
-package pl.pfm.accounts;
+package pl.pfm.logic.accounts;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;

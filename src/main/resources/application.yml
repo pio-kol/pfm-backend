@@ -4,15 +4,15 @@ active:
 spring:
   datasource:
    # driverClassName: com.mysql.jdbc.Driver
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/pfm
-    username: root
-    password: AniaLew1972
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/pfm
+    username: postgres
+    password: postgres
 
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update

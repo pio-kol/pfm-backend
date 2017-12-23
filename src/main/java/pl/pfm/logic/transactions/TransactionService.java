@@ -1,23 +1,20 @@
-package pl.pfm.transactions;
+package pl.pfm.logic.transactions;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.pfm.logic.accounts.AccountRepository;
+import pl.pfm.logic.categories.CategoryRepository;
 import pl.pfm.model.transaction.Transaction;
 import pl.pfm.model.transaction.TransactionBody;
-import pl.pfm.repository.TransactionRepository;
 
-import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class TransactionService {
 
-    @Resource
     private TransactionRepository transactionRepository;
-
-    public TransactionService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
+    private CategoryRepository categoryRepository;
+    private AccountRepository accountRepository;
 
     public List<Transaction> getTransactions() {
         return transactionRepository.findAll();
@@ -32,8 +29,8 @@ public class TransactionService {
                 .date(transactionBody.getDate())
                 .description(transactionBody.getDescription())
                 .comment(transactionBody.getComment())
-                .category(transactionBody.getCategory())
-                .account(transactionBody.getAccount())
+                .category(categoryRepository.findOne(transactionBody.getCategory().getId()))
+                .account(accountRepository.findOne(transactionBody.getAccount().getId()))
                 .price(transactionBody.getPrice())
                 .build();
 
@@ -47,24 +44,30 @@ public class TransactionService {
     }
 
     public Transaction putTransaction(long id, TransactionBody transactionBody) {
-        Iterator<Transaction> transactionIterator = transactionRepository.findAll().iterator();
-        Transaction transaction = null;
-        while (transactionIterator.hasNext()) {
-            if (transactionIterator.next().getId() == id) {
-                transaction =
-                        Transaction.builder()
-                                .date(transactionBody.getDate())
-                                .description(transactionBody.getDescription())
-                                .comment(transactionBody.getComment())
-                                .category(transactionBody.getCategory())
-                                .account(transactionBody.getAccount())
-                                .price(transactionBody.getPrice())
-                                .build();
-                transactionRepository.save(transaction);
-            }
-        }
+        Transaction transaction = transactionRepository.findOne(id);
+        transaction.setDate(transactionBody.getDate());
+        transaction.setDescription(transactionBody.getDescription());
+        transaction.setComment(transactionBody.getComment());
+        transaction.setCategory(categoryRepository.findOne(transactionBody.getCategory().getId()));
+        transaction.setAccount(accountRepository.findOne(transactionBody.getAccount().getId()));
+        transaction.setPrice(transactionBody.getPrice());
+
+        transactionRepository.save(transaction);
         return transaction;
     }
 
+    @Autowired
+    public void setTransactionRepository(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    @Autowired
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 }

@@ -1,4 +1,4 @@
-package pl.pfm.accounts;
+package pl.pfm.logic.accounts;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

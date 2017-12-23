@@ -1,4 +1,4 @@
-package pl.pfm.categories;
+package pl.pfm.logic.categories;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

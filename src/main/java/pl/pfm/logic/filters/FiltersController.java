@@ -1,4 +1,4 @@
-package pl.pfm.controller;
+package pl.pfm.logic.filters;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
